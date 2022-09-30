@@ -2,8 +2,13 @@
 using System.Diagnostics;
 using System.Diagnostics.SymbolStore;
 
-Räknare räknare = new Räknare();   //Kör programmet 
-räknare.run();
+//bool on = true;
+//while (on)
+
+    Räknare räknare = new Räknare();   //Kör programmet 
+    räknare.run();
+
+
 
 
 

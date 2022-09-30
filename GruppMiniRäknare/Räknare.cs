@@ -10,9 +10,7 @@ namespace GruppMiniRäknare
 {
     internal class Räknare
     {
-        //bool on = true;
-        //while (on) 
-        //{
+        
 
             private List<double> resultatHistorik;
         public void run() // Välkomnande meddelande
@@ -23,91 +21,106 @@ namespace GruppMiniRäknare
             Console.WriteLine("==================================");
 
             resultatHistorik = new List<double>(); // En lista för att spara historik för räkningar
-
+            
             calculate();
             menu();
+            
         }
 
         public void calculate()
         {
-
+            string inputTal1;
+            string inputTal2;
             double tal1;
             double tal2;
 
+            bool felInput = true;
 
-            // Användaren matar in tal och matematiska operation
-            Console.Write("Skriv in det första talet: ");
-            try
+            while (felInput)
             {
-                 tal1 = double.Parse(Console.ReadLine());
-            }
-            catch (Exception)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine(" Ogilig inmatning! ");
-                Console.ForegroundColor = ConsoleColor.Gray;
 
-                throw;
-            }
-
-            Console.WriteLine("Skriv in matematiska operation \n " +    //Jag vill att det fungerar som räknaren i verkligheten 
-            "+ för plus \n " +
-            "- för minus \n " +
-            "* för multiplikation\n " +
-            "/ för division ");
-
-            string operatör = Console.ReadLine();
-            Console.Write("Skriv in det andra talet: ");
-
-            try
-            {
-                tal2 = double.Parse(Console.ReadLine());
-            }
-            catch (Exception)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine(" Ogilig inmatning! ");
-                Console.ForegroundColor = ConsoleColor.Gray;
-                throw;
-            }
-
-            if (operatör == "/" && tal2 == 0)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("Går ej att dela med 0 ");
-                Console.ForegroundColor = ConsoleColor.Gray;
-                Console.ReadLine();
-                return;
-            }
-
-            switch (operatör)
-            {
-                case "+":
-                    double plusResultat = tal1 + tal2;
-                    resultatHistorik.Add(plusResultat); // Lägga resultat till listan
-                    Console.WriteLine(tal1 + " + " + tal2 + " = " + plusResultat);  //Visa resultat
-                    break;
-                case "-":
-                    double minusResultat = tal1 - tal2;
-                    resultatHistorik.Add(minusResultat); // Lägga resultat till listan
-                    Console.WriteLine(tal1 + " - " + tal2 + " = " + minusResultat);  //Visa resultat
-                    break;
-                case "*":
-                    double gångerResultat = tal1 * tal2;
-                    resultatHistorik.Add(gångerResultat); // Lägga resultat till listan
-                    Console.WriteLine(tal1 + " * " + tal2 + " = " + gångerResultat);  //Visa resultat
-                    break;
-                case "/":
-                    double divisionResultat = tal1 / tal2;
-                    resultatHistorik.Add(divisionResultat); // Lägga resultat till listan
-                    Console.WriteLine(tal1 + " / " + tal2 + " = " + divisionResultat);  //Visa resultat
-                    break;
-                default:
+                // Användaren matar in tal och matematiska operation
+                Console.Write("Skriv in det första talet: ");
+                inputTal1 = Console.ReadLine();
+                
+                    bool okay = double.TryParse(inputTal1, out tal1);
+                    
+                if (okay)
+                {
+                    felInput = false;
+                }
+                else
+                { 
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine(" Ogilig inmatning! ");
                     Console.ForegroundColor = ConsoleColor.Gray;
-                    break;
+                }
+                
+                Console.WriteLine("Skriv in matematiska operation \n " +    //Jag vill att det fungerar som räknaren i verkligheten 
+                "+ för plus \n " +
+                "- för minus \n " +
+                "* för multiplikation\n " +
+                "/ för division ");
+
+                string operatör = Console.ReadLine();
+                Console.Write("Skriv in det andra talet: ");
+                inputTal2 = Console.ReadLine();
+               
+                bool okay1 = double.TryParse(inputTal2, out tal2);
+                
+                if (okay1)
+                {
+                    felInput = false;
+                }
+                else
+                {   
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine(" Ogilig inmatning! ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+
+                }
+
+
+                if (operatör == "/" && tal2 == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("Går ej att dela med 0 ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.ReadLine();
+                    return;
+                }
+
+
+                switch (operatör)
+                {
+                    case "+":
+                        double plusResultat = tal1 + tal2;
+                        resultatHistorik.Add(plusResultat); // Lägga resultat till listan
+                        Console.WriteLine(tal1 + " + " + tal2 + " = " + plusResultat);  //Visa resultat
+                        break;
+                    case "-":
+                        double minusResultat = tal1 - tal2;
+                        resultatHistorik.Add(minusResultat); // Lägga resultat till listan
+                        Console.WriteLine(tal1 + " - " + tal2 + " = " + minusResultat);  //Visa resultat
+                        break;
+                    case "*":
+                        double gångerResultat = tal1 * tal2;
+                        resultatHistorik.Add(gångerResultat); // Lägga resultat till listan
+                        Console.WriteLine(tal1 + " * " + tal2 + " = " + gångerResultat);  //Visa resultat
+                        break;
+                    case "/":
+                        double divisionResultat = tal1 / tal2;
+                        resultatHistorik.Add(divisionResultat); // Lägga resultat till listan
+                        Console.WriteLine(tal1 + " / " + tal2 + " = " + divisionResultat);  //Visa resultat
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine(" Ogilig inmatning! ");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        break;
+                }
             }
+
             Console.ReadLine();
         }
 
@@ -147,8 +160,8 @@ namespace GruppMiniRäknare
                     }
                 }
             }
-        }
     }
+}
 
     
 
